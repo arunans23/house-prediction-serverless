@@ -15,6 +15,7 @@ jobs:
          BODY=$(echo ${{github.event.comment.body}})
          NAME=$BODY[0]
          echo Name $NAME
+         echo "::set-output name=id::$NAME"
      - name: test
        if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
        run: |
@@ -22,5 +23,5 @@ jobs:
          echo test
      - name: final
        run: |
-         echo "${{steps.get-name.outputs.NAME}}"
+         echo "${{steps.get-name.outputs.id}}"
          echo final
