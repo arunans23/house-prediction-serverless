@@ -18,4 +18,9 @@ jobs:
      - name: test
        if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
        run: |
+         echo "${{steps.get-name.outputs.NAME}}"
          echo test
+     - name: final
+       run: |
+         echo "${{steps.get-name.outputs.NAME}}"
+         echo final
