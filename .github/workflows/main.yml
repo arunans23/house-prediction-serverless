@@ -9,13 +9,17 @@ jobs:
    runs-on: [ubuntu-latest]
    steps:
      - name: getname
+       id: getname
        if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
        run: |
          echo say hello ${{github.event.comment.body}}
          BODY=$(echo ${{github.event.comment.body}})
-         NAME=$BODY[0]
+         a=( $BODY )
+         echo ${a[0]}
+         echo ${a[1]}
+         NAME=${a[1]}
          echo Name $NAME
-         echo "::set-output name=fruit::strawberry"
+         echo "::set-output name=name::$NAME"
      - name: test
        if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
        run: |
@@ -23,7 +27,7 @@ jobs:
          echo test
      - name: final
        run: |
-         echo "${{steps.getname.outputs.fruit}}"
+         echo "${{steps.getname.outputs.name}}"
          echo final
      - name: Set selected color
        run: echo '::set-output name=SELECTED_COLOR::green'
