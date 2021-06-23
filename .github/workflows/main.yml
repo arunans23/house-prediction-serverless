@@ -8,12 +8,12 @@ jobs:
    if: contains(github.event.comment.html_url, '/pull/')    # check if the comments come from pull request, exclude those from issue.
    runs-on: [ubuntu-latest]
    steps:
-     - name: say hello
+     - name: get-name
        if: contains(github.event.comment.body, '/support')   # check the comment if it contains the keywords
        run: |
          echo say hello ${{github.event.comment.body}}
-         BODY=${{github.event.comment.body}}
-         NAME=BODY[0]
+         BODY=$(echo ${{github.event.comment.body}})
+         NAME=$BODY[0]
          echo Name $NAME
      - name: test
        if: contains(github.event.comment.body, '/test')  # check the comment if it contains the keywords
